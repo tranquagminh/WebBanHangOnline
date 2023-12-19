@@ -1,27 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
 namespace WebBanHangOnline.Models.EF
 {
-    [Table("tb_Adv")]
-    public class Adv : CommonAbstract
+    [Table("tb_ProductCategory")]
+    public class ProductCategory : CommonAbstract
     {
+        public ProductCategory() { 
+            this.Products = new HashSet<Product>();
+        }
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [Required]
         [StringLength(150)]
         public string Title { get; set; }
-        [StringLength(500)]
         public string Description { get; set; }
-        [StringLength(500)]
-        public string Image { get; set; }
-        public int Type { get; set; }
-        [StringLength(500)]
-        public string Link { get; set; }
+        public string Icon { get; set; }
+        public ICollection<Product> Products { get; set;}
     }
 }

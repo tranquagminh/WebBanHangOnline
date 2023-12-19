@@ -176,11 +176,25 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202312190803311_CreatedDatabase.cs" />
+    <Compile Include="Migrations\202312190803311_CreatedDatabase.designer.cs">
+      <DependentUpon>202312190803311_CreatedDatabase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\EF\Adv.cs" />
     <Compile Include="Models\EF\Category.cs" />
     <Compile Include="Models\EF\CommonAbstract.cs" />
     <Compile Include="Models\EF\Contact.cs" />
+    <Compile Include="Models\EF\News.cs" />
+    <Compile Include="Models\EF\Order.cs" />
+    <Compile Include="Models\EF\OrderDetail.cs" />
+    <Compile Include="Models\EF\Posts.cs" />
+    <Compile Include="Models\EF\Product.cs" />
+    <Compile Include="Models\EF\ProductCategory.cs" />
+    <Compile Include="Models\EF\ProductImage.cs" />
+    <Compile Include="Models\EF\Subcribe.cs" />
+    <Compile Include="Models\EF\SystemSetting.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -2236,6 +2250,11 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202312190803311_CreatedDatabase.resx">
+      <DependentUpon>202312190803311_CreatedDatabase.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
