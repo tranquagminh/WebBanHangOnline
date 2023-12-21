@@ -194,6 +194,10 @@
     <Compile Include="Migrations\202312191241225_AddAlias.designer.cs">
       <DependentUpon>202312191241225_AddAlias.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202312210427045_AddPropertyIsActive.cs" />
+    <Compile Include="Migrations\202312210427045_AddPropertyIsActive.designer.cs">
+      <DependentUpon>202312210427045_AddPropertyIsActive.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Common\Filter.cs" />
@@ -3112,6 +3116,7 @@
     <Content Include="Content\ckeditor\ckeditor\samples\sample_posteddata.php" />
     <Content Include="Content\ckeditor\ckeditor\skins\moono\readme.md" />
     <Content Include="Content\ckfinder\ckfinder\plugins\fileeditor\codemirror\LICENSE" />
+    <Content Include="Areas\Admin\Views\News\Edit.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -3185,6 +3190,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202312191241225_AddAlias.resx">
       <DependentUpon>202312191241225_AddAlias.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202312210427045_AddPropertyIsActive.resx">
+      <DependentUpon>202312210427045_AddPropertyIsActive.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

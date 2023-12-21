@@ -30,6 +30,7 @@ namespace WebBanHangOnline.Models.EF
         public bool isSale { get; set; }
         public bool isFeature { get; set; }
         public bool isHot { get; set; }
+        public bool IsActive { get; set; }
         public string SeoTitle { get; set; }
         public string SeoDescription { get; set; }
         public string SeoKeyWords { get; set; }

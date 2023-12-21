@@ -54,6 +54,7 @@
                     <th>Hình ảnh</th>
                     <th>Tiêu đề</th>
                     <th>Ngày tạo</th>
+                    <th>Hiển thị</th>
                     <th>Thứ tự</th>
                     <th></th>
                 </tr>
@@ -62,12 +63,15 @@
                     var i = 1;
                     foreach (var item in Model)
                     {
+                        var strCheck = item.IsActive ? " <i class=\"fa fa-check text-success\"></i>" : " <i class=\"fa fa-times text-danger\"></i>";
                         <tr id="trow_@item.Id">
                             <td>@i</td>
                             <td><img src="@item.Image" width="50"/></td>
                             <td>@item.Title</td>
                             <td>@item.CreatedDate.ToString("dd/MM/yyyy")</td>
-                            <td>@item.ModifiedBy</td>
+                            <td class="text-center">
+                               <a href='#' data-id="@item.Id"class="btnActive" > @Html.Raw(strCheck)</a>
+                            </td>
                             <td>
                                 <a href="/admin/News/edit/@item.Id" class="btn btn-success">Sửa</a>
                                 <a href="#" data-id="@item.Id" class="btn btn-danger Btn-Delete">Xóa</a>
@@ -101,6 +105,7 @@
 @section scripts{
     <script>
         $(document).ready(function () {
+            // Click on Btn-Delete
             var a = document.querySelectorAll('.Btn-Delete')
             for (i of a) {
                 var id = i.dataset.id
@@ -120,6 +125,34 @@
                         });
 
                     }
+                }
+
+            }
+
+            // Click on btnActive
+            var a = document.querySelectorAll('.btnActive')
+            for (i of a) {
+                var id = i.dataset.id
+
+                i.onclick = function (e) {
+                    e.preventDefault();
+                    /*var conf = confirm('Bạn có muốn đổi trạng thái tin tức này không?');*/
+                    $.ajax({
+                        url: '/admin/News/IsActive',
+                        type: 'POST',
+                        data: { id: id },
+                        success: function (rs) {
+                            if (rs.success) {
+                                if (rs.isActive) {
+                                    i.innerHTML = "<i class='fa fa-check text-success'></i>";
+                                }
+                                else {
+                                    i.innerHTML = "<i class='fa fa-times text-danger'></i>";
+                                }
+                            }
+                            
+                        }
+                    });
                 }
 
             }

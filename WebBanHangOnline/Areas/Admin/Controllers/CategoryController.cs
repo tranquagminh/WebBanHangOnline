@@ -66,7 +66,7 @@ namespace WebBanHangOnline.Areas.Admin.Controllers
             }
             return View(model);
         }
-        [HttpPost]
+       [HttpPost]
        public ActionResult Delete(int id)
         {
             var item = db.Categories.Find(id);
