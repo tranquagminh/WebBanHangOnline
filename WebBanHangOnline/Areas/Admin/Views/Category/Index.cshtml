@@ -97,12 +97,12 @@
     <script>
         $(document).ready(function () {
             var a = document.querySelectorAll('.Btn-Delete')
-            for (i of a) {
-                var id = i.dataset.id
 
+            for (let i of a) {
                 i.onclick = function () {
+                    var id = i.dataset.id
                     var conf = confirm('Bạn có muốn xóa danh mục này không?');
-                    if ( conf === true) {
+                    if (conf === true) {
                         $.ajax({
                             url: '/admin/Category/Delete',
                             type: 'POST',
@@ -113,11 +113,11 @@
                                 }
                             }
                         });
-                        
+
                     }
                 }
-
             }
+           
         })
         
     </script>

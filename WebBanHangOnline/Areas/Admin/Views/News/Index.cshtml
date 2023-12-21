@@ -45,11 +45,13 @@
 
             <div class="card-tools">
                 <a href="/admin/News/Add" class="btn btn-primary">Thêm mới</a>
+                <a href="#" id="BtnDeleteAll" class="btn btn-danger">Xóa</a>
             </div>
         </div>
         <div class="card-body">
             <table class="table table-hover">
                 <tr>
+                    <th><input type="checkbox" id="selectAll"/></th>
                     <th>STT</th>
                     <th>Hình ảnh</th>
                     <th>Tiêu đề</th>
@@ -65,12 +67,13 @@
                     {
                         var strCheck = item.IsActive ? " <i class=\"fa fa-check text-success\"></i>" : " <i class=\"fa fa-times text-danger\"></i>";
                         <tr id="trow_@item.Id">
+                            <td><input type="checkbox" class="deleteBox" value="@item.Id"/></td>
                             <td>@i</td>
                             <td><img src="@item.Image" width="50"/></td>
                             <td>@item.Title</td>
                             <td>@item.CreatedDate.ToString("dd/MM/yyyy")</td>
                             <td class="text-center">
-                               <a href='#' data-id="@item.Id"class="btnActive" > @Html.Raw(strCheck)</a>
+                               <a href='#' data-id="@item.Id" class="btnActive" > @Html.Raw(strCheck)</a>
                             </td>
                             <td>
                                 <a href="/admin/News/edit/@item.Id" class="btn btn-success">Sửa</a>
@@ -107,12 +110,12 @@
         $(document).ready(function () {
             // Click on Btn-Delete
             var a = document.querySelectorAll('.Btn-Delete')
-            for (i of a) {
-                var id = i.dataset.id
-
+           
+            for (let i of a) {
                 i.onclick = function () {
+                    var id = i.dataset.id
                     var conf = confirm('Bạn có muốn xóa danh mục này không?');
-                    if ( conf === true) {
+                    if (conf === true) {
                         $.ajax({
                             url: '/admin/News/Delete',
                             type: 'POST',
@@ -126,17 +129,16 @@
 
                     }
                 }
-
             }
+            
 
             // Click on btnActive
-            var a = document.querySelectorAll('.btnActive')
-            for (i of a) {
-                var id = i.dataset.id
-
+            var ButtonActive = document.querySelectorAll('.btnActive')
+            console.log(ButtonActive)
+            for (let i of ButtonActive) {
                 i.onclick = function (e) {
                     e.preventDefault();
-                    /*var conf = confirm('Bạn có muốn đổi trạng thái tin tức này không?');*/
+                    var id = i.dataset.id
                     $.ajax({
                         url: '/admin/News/IsActive',
                         type: 'POST',
@@ -150,12 +152,69 @@
                                     i.innerHTML = "<i class='fa fa-times text-danger'></i>";
                                 }
                             }
-                            
+
                         }
                     });
                 }
-
             }
+            
+
+            // Ô chọn tất cả để xóa
+            var selectAll = document.querySelector('#selectAll')
+            // Tất cả các ô để xóa
+            var deleteBox = document.querySelectorAll('.deleteBox')
+            // Mỗi lần click kiểm tra xem các ô chọn để xóa có bằng với tổng các ô không thì tick vào ô selectAll
+            for (a of deleteBox) {
+                a.onchange = function () {
+                    // Lọc ra các ô được chọn
+                    var checkedBox = Array.from(deleteBox).filter(function (checkbox) {
+                        return checkbox.checked
+                    })
+                    selectAll.checked = checkedBox.length == deleteBox.length ? true : false
+                }
+            }
+            // Chọn checkbox All thì sẽ chọn tất cả các đeleteBox
+            selectAll.onchange = function () {
+                for (a of deleteBox) {
+                    a.checked = selectAll.checked
+                }
+            }
+
+            // khi nhấn nút xóa tất cả
+            $('body').on('click', '#BtnDeleteAll', function (e) {
+                
+                e.preventDefault()
+                var checkedBox = Array.from(deleteBox).filter(function (checkbox) {
+                    return checkbox.checked
+                })
+                if (checkedBox.length != 0) {
+                    var conf = confirm('Bạn có muốn xóa danh mục này không?');
+
+                    if (conf === true) {
+
+                        for (let item of checkedBox) {
+                            var id = item.value
+
+                            $.ajax({
+                                url: '/admin/News/Delete',
+                                type: 'POST',
+                                data: { id: id },
+                                success: function (rs) {
+                                    if (rs.success) {
+                                        location.reload();
+                                    }
+                                }
+                            });
+                        }
+
+                    }
+                } else {
+                    alert('Bạn phải chọn mục để xóa!!!')
+                }
+                
+            })
+            
+                
         })
 
     </script>
