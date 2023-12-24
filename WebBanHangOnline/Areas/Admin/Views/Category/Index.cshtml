@@ -1,4 +1,6 @@
-﻿@model IEnumerable<WebBanHangOnline.Models.EF.Category>
+﻿@model PagedList.PagedList<WebBanHangOnline.Models.EF.Category>
+@using PagedList.Mvc;
+@using PagedList;
 @{
     ViewBag.Title = "Danh mục";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
@@ -44,11 +46,13 @@
 
             <div class="card-tools">
                 <a href="/admin/Category/Add" class="btn btn-primary">Thêm mới</a>
+                <a href="#" id="BtnDeleteAll" class="btn btn-danger">Xóa</a>
             </div>
         </div>
         <div class="card-body">
             <table class="table table-hover">
                 <tr>
+                    <th><input type="checkbox" id="selectAll" /></th>
                     <th>STT</th>
                     <th>Tên</th>
                     <th>Thứ tự xuất hiện</th>
@@ -56,10 +60,11 @@
                 </tr>
                 @if (Model != null && Model.Any())
                 {
-                    var i = 1;
+                    var i = ((ViewBag.Page - 1) * ViewBag.PageSize) + 1;
                     foreach (var item in Model)
                     {
                         <tr id="trow_@item.Id">
+                            <td><input type="checkbox" class="deleteBox" value="@item.Id" /></td>
                             <td>@i</td>
                             <td>@item.Title</td>
                             <td>@item.Position</td>
@@ -81,6 +86,13 @@
 
             </table>
 
+            <div class="row">
+                <div class="col-6"></div>
+                <div class="col-6">
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                </div>
+
+            </div>
         </div>
         <!-- /.card-body -->
         <div class="card-footer">
@@ -117,8 +129,91 @@
                     }
                 }
             }
-           
+
+
+            // Click on btnActive
+            var ButtonActive = document.querySelectorAll('.btnActive')
+            console.log(ButtonActive)
+            for (let i of ButtonActive) {
+                i.onclick = function (e) {
+                    e.preventDefault();
+                    var id = i.dataset.id
+                    $.ajax({
+                        url: '/admin/Category/IsActive',
+                        type: 'POST',
+                        data: { id: id },
+                        success: function (rs) {
+                            if (rs.success) {
+                                if (rs.isActive) {
+                                    i.innerHTML = "<i class='fa fa-check text-success'></i>";
+                                }
+                                else {
+                                    i.innerHTML = "<i class='fa fa-times text-danger'></i>";
+                                }
+                            }
+
+                        }
+                    });
+                }
+            }
+
+
+            // Ô chọn tất cả để xóa
+            var selectAll = document.querySelector('#selectAll')
+            // Tất cả các ô để xóa
+            var deleteBox = document.querySelectorAll('.deleteBox')
+            // Mỗi lần click kiểm tra xem các ô chọn để xóa có bằng với tổng các ô không thì tick vào ô selectAll
+            for (a of deleteBox) {
+                a.onchange = function () {
+                    // Lọc ra các ô được chọn
+                    var checkedBox = Array.from(deleteBox).filter(function (checkbox) {
+                        return checkbox.checked
+                    })
+                    selectAll.checked = checkedBox.length == deleteBox.length ? true : false
+                }
+            }
+            // Chọn checkbox All thì sẽ chọn tất cả các đeleteBox
+            selectAll.onchange = function () {
+                for (a of deleteBox) {
+                    a.checked = selectAll.checked
+                }
+            }
+
+            // khi nhấn nút xóa tất cả
+            $('body').on('click', '#BtnDeleteAll', function (e) {
+
+                e.preventDefault()
+                var checkedBox = Array.from(deleteBox).filter(function (checkbox) {
+                    return checkbox.checked
+                })
+                if (checkedBox.length != 0) {
+                    var conf = confirm('Bạn có muốn xóa danh mục này không?');
+
+                    if (conf === true) {
+
+                        for (let item of checkedBox) {
+                            var id = item.value
+
+                            $.ajax({
+                                url: '/admin/Category/Delete',
+                                type: 'POST',
+                                data: { id: id },
+                                success: function (rs) {
+                                    if (rs.success) {
+                                        location.reload();
+                                    }
+                                }
+                            });
+                        }
+
+                    }
+                } else {
+                    alert('Bạn phải chọn mục để xóa!!!')
+                }
+
+            })
+
         })
-        
+
     </script>
 }

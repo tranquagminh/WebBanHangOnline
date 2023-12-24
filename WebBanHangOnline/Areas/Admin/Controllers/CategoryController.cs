@@ -1,4 +1,5 @@
 ﻿using Microsoft.Ajax.Utilities;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +15,17 @@ namespace WebBanHangOnline.Areas.Admin.Controllers
     {
         ApplicationDbContext db = new ApplicationDbContext();
         // GET: Admin/Category
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-           var items = db.Categories;
+            var pageSize = 5;
+            if (page == null)
+            {
+                page = 1;
+            }
+            var pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            var items = db.Categories.OrderByDescending(x => x.Id).ToPagedList(pageIndex, pageSize);
+            ViewBag.PageSize = pageSize;
+            ViewBag.Page = page;
             return View(items);
         }
         public ActionResult Add() {
@@ -77,6 +86,27 @@ namespace WebBanHangOnline.Areas.Admin.Controllers
                 return Json(new { success = true });
             }
             return Json(new { success = false});
+        }
+        [HttpPost]
+        public ActionResult IsActive(int id)
+        {
+            var item = db.News.Find(id);
+            if (item != null)
+            {
+                if (item.IsActive == true)
+                {
+                    item.IsActive = false;
+                }
+                else
+                {
+                    item.IsActive = true;
+                }
+                db.News.Attach(item);
+                db.Entry(item).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                return Json(new { success = true, isActive = item.IsActive });
+            }
+            return Json(new { success = false });
         }
     }
 }

@@ -1,8 +1,8 @@
-﻿@model PagedList.PagedList<WebBanHangOnline.Models.EF.News>
+﻿@model PagedList.PagedList<WebBanHangOnline.Models.EF.Posts>
 @using PagedList.Mvc;
 @using PagedList;
 @{
-    ViewBag.Title = "Danh sách tin tức";
+    ViewBag.Title = "Danh sách bài viết";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
@@ -16,7 +16,7 @@
             <a href="/admin/home" class="nav-link">Trang chủ</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="/admin/News" class="nav-link">@ViewBag.Title</a>
+            <a href="/admin/Posts" class="nav-link">@ViewBag.Title</a>
         </li>
     </ul>
 }
@@ -25,7 +25,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Quản lý tin tức</h1>
+                <h1>Quản lý bài viết</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -46,29 +46,28 @@
             <h3 class="card-title">@ViewBag.Title</h3>
 
             <div class="card-tools">
-                <a href="/admin/News/Add" class="btn btn-primary">Thêm mới</a>
+                <a href="/admin/Posts/Add" class="btn btn-primary">Thêm mới</a>
                 <a href="#" id="BtnDeleteAll" class="btn btn-danger">Xóa</a>
             </div>
         </div>
         <div class="card-body">
             <div class="row">
                 <div class="col-6">
-                    @using (Html.BeginForm("Index", "News", FormMethod.Get, new { }))
-                    {
+                    @using (Html.BeginForm("Index", "Posts",FormMethod.Get,new { })) 
+                    { 
                         <div class="input-group input-group-sm">
-                            @Html.TextBox("SearchText", "",new { @class = "form-class" })
-
+                            @Html.TextBox("SearchText","",new { @class = "form-class"})
+                         
                             <span class="input-group-append">
                                 <button type="submit" class="btn btn-info btn-flat">Tìm kiếm!</button>
                             </span>
                         </div>
                     }
-
+                    
                 </div>
-
+                
             </div>
             <table class="table table-hover">
-
                 <tr>
                     <th><input type="checkbox" id="selectAll" /></th>
                     <th>STT</th>
@@ -76,12 +75,11 @@
                     <th>Tiêu đề</th>
                     <th>Ngày tạo</th>
                     <th>Hiển thị</th>
-
+                  
                     <th></th>
                 </tr>
                 @if (Model != null && Model.Any())
                 {
-
                     var i = ((ViewBag.Page - 1) * ViewBag.PageSize) + 1;
                     foreach (var item in Model)
                     {
@@ -96,7 +94,7 @@
                                 <a href='#' data-id="@item.Id" class="btnActive"> @Html.Raw(strCheck)</a>
                             </td>
                             <td>
-                                <a href="/admin/News/edit/@item.Id" class="btn btn-success">Sửa</a>
+                                <a href="/admin/Posts/edit/@item.Id" class="btn btn-success">Sửa</a>
                                 <a href="#" data-id="@item.Id" class="btn btn-danger Btn-Delete">Xóa</a>
                             </td>
                         </tr>
@@ -114,14 +112,12 @@
             </table>
 
             <div class="row">
-                <div class="col-6"></div>
-                <div class="col-6">
+                <div class="col-12 text-center">
                     @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
                 </div>
+                
 
             </div>
-
-
         </div>
         <!-- /.card-body -->
         <div class="card-footer">
@@ -139,14 +135,14 @@
         $(document).ready(function () {
             // Click on Btn-Delete
             var a = document.querySelectorAll('.Btn-Delete')
-           
+
             for (let i of a) {
                 i.onclick = function () {
                     var id = i.dataset.id
                     var conf = confirm('Bạn có muốn xóa danh mục này không?');
                     if (conf === true) {
                         $.ajax({
-                            url: '/admin/News/Delete',
+                            url: '/admin/Posts/Delete',
                             type: 'POST',
                             data: { id: id },
                             success: function (rs) {
@@ -159,7 +155,7 @@
                     }
                 }
             }
-            
+
 
             // Click on btnActive
             var ButtonActive = document.querySelectorAll('.btnActive')
@@ -169,7 +165,7 @@
                     e.preventDefault();
                     var id = i.dataset.id
                     $.ajax({
-                        url: '/admin/News/IsActive',
+                        url: '/admin/Posts/IsActive',
                         type: 'POST',
                         data: { id: id },
                         success: function (rs) {
@@ -186,7 +182,7 @@
                     });
                 }
             }
-            
+
 
             // Ô chọn tất cả để xóa
             var selectAll = document.querySelector('#selectAll')
@@ -211,7 +207,7 @@
 
             // khi nhấn nút xóa tất cả
             $('body').on('click', '#BtnDeleteAll', function (e) {
-                
+
                 e.preventDefault()
                 var checkedBox = Array.from(deleteBox).filter(function (checkbox) {
                     return checkbox.checked
@@ -225,7 +221,7 @@
                             var id = item.value
 
                             $.ajax({
-                                url: '/admin/News/Delete',
+                                url: '/admin/Posts/Delete',
                                 type: 'POST',
                                 data: { id: id },
                                 success: function (rs) {
@@ -240,10 +236,10 @@
                 } else {
                     alert('Bạn phải chọn mục để xóa!!!')
                 }
-                
+
             })
-            
-                
+
+
         })
 
     </script>
