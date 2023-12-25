@@ -1,0 +1,238 @@
+﻿@model PagedList.PagedList<WebBanHangOnline.Models.EF.Product>
+@using PagedList.Mvc;
+@using PagedList;
+@{
+    ViewBag.Title = "Danh sách sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section naviheader{
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/home" class="nav-link">Trang chủ</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/Products" class="nav-link">@ViewBag.Title</a>
+        </li>
+    </ul>
+}
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Quản lý sản phẩm</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                    <li class="breadcrumb-item active">@ViewBag.Title</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">@ViewBag.Title</h3>
+
+            <div class="card-tools">
+                <a href="/admin/Products/Add" class="btn btn-primary">Thêm mới</a>
+                <a href="#" id="BtnDeleteAll" class="btn btn-danger">Xóa</a>
+            </div>
+        </div>
+        <div class="card-body">
+            
+            <table class="table table-hover">
+                <tr>
+                    <th><input type="checkbox" id="selectAll" /></th>
+                    <th>STT</th>
+                    <th>Hình ảnh</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Danh mục</th>
+                    <th>Số lượng</th>
+                    <th>Giá</th>
+                    <th>Ngày tạo</th>
+                    <th>Hiển thị</th>
+
+                    <th></th>
+                </tr>
+                @if (Model != null && Model.Any())
+                {
+                    var i = ((ViewBag.Page - 1) * ViewBag.PageSize) + 1;
+                    foreach (var item in Model)
+                    {
+                        var strCheck = item.IsActive ? " <i class=\"fa fa-check text-success\"></i>" : " <i class=\"fa fa-times text-danger\"></i>";
+                        <tr id="trow_@item.Id">
+                            <td><input type="checkbox" class="deleteBox" value="@item.Id" /></td>
+                            <td>@i</td>
+                            <td><img src="@item.Image" width="50" /></td>
+                            <td>@item.Title</td>
+                            <td>@item.ProductCategory.Title</td>
+                            <td>@item.Quantity</td>
+                            <td>@item.Price</td>
+                            <td>@item.CreatedDate.ToString("dd/MM/yyyy")</td>
+                            <td class="text-center">
+                                <a href='#' data-id="@item.Id" class="btnActive"> @Html.Raw(strCheck)</a>
+                            </td>
+                            <td>
+                                <a href="/admin/Products/edit/@item.Id" class="btn btn-success">Sửa</a>
+                                <a href="#" data-id="@item.Id" class="btn btn-danger Btn-Delete">Xóa</a>
+                            </td>
+                        </tr>
+                        i++;
+                    }
+
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="4">Không có bản ghi nào!!!</td>
+                    </tr>
+                }
+
+            </table>
+
+            <div class="row">
+                <div class="col-12 text-center">
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                </div>
+
+
+            </div>
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer">
+
+        </div>
+        <!-- /.card-footer-->
+    </div>
+    <!-- /.card -->
+
+</section>
+<!-- /.content -->
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            // Click on Btn-Delete
+            var a = document.querySelectorAll('.Btn-Delete')
+
+            for (let i of a) {
+                i.onclick = function () {
+                    var id = i.dataset.id
+                    var conf = confirm('Bạn có muốn xóa danh mục này không?');
+                    if (conf === true) {
+                        $.ajax({
+                            url: '/admin/Products/Delete',
+                            type: 'POST',
+                            data: { id: id },
+                            success: function (rs) {
+                                if (rs.success) {
+                                    $('#trow_' + id).remove();
+                                }
+                            }
+                        });
+
+                    }
+                }
+            }
+
+
+            // Click on btnActive
+            var ButtonActive = document.querySelectorAll('.btnActive')
+            console.log(ButtonActive)
+            for (let i of ButtonActive) {
+                i.onclick = function (e) {
+                    e.preventDefault();
+                    var id = i.dataset.id
+                    $.ajax({
+                        url: '/admin/Products/IsActive',
+                        type: 'POST',
+                        data: { id: id },
+                        success: function (rs) {
+                            if (rs.success) {
+                                if (rs.isActive) {
+                                    i.innerHTML = "<i class='fa fa-check text-success'></i>";
+                                }
+                                else {
+                                    i.innerHTML = "<i class='fa fa-times text-danger'></i>";
+                                }
+                            }
+
+                        }
+                    });
+                }
+            }
+
+
+            // Ô chọn tất cả để xóa
+            var selectAll = document.querySelector('#selectAll')
+            // Tất cả các ô để xóa
+            var deleteBox = document.querySelectorAll('.deleteBox')
+            // Mỗi lần click kiểm tra xem các ô chọn để xóa có bằng với tổng các ô không thì tick vào ô selectAll
+            for (a of deleteBox) {
+                a.onchange = function () {
+                    // Lọc ra các ô được chọn
+                    var checkedBox = Array.from(deleteBox).filter(function (checkbox) {
+                        return checkbox.checked
+                    })
+                    selectAll.checked = checkedBox.length == deleteBox.length ? true : false
+                }
+            }
+            // Chọn checkbox All thì sẽ chọn tất cả các đeleteBox
+            selectAll.onchange = function () {
+                for (a of deleteBox) {
+                    a.checked = selectAll.checked
+                }
+            }
+
+            // khi nhấn nút xóa tất cả
+            $('body').on('click', '#BtnDeleteAll', function (e) {
+
+                e.preventDefault()
+                var checkedBox = Array.from(deleteBox).filter(function (checkbox) {
+                    return checkbox.checked
+                })
+                if (checkedBox.length != 0) {
+                    var conf = confirm('Bạn có muốn xóa danh mục này không?');
+
+                    if (conf === true) {
+
+                        for (let item of checkedBox) {
+                            var id = item.value
+
+                            $.ajax({
+                                url: '/admin/Products/Delete',
+                                type: 'POST',
+                                data: { id: id },
+                                success: function (rs) {
+                                    if (rs.success) {
+                                        location.reload();
+                                    }
+                                }
+                            });
+                        }
+
+                    }
+                } else {
+                    alert('Bạn phải chọn mục để xóa!!!')
+                }
+
+            })
+
+
+        })
+
+    </script>
+}
+
