@@ -3034,6 +3034,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\autoNumeric-1.9.45.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\Admin\Views\web.config" />
@@ -3157,6 +3158,28 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Uploads\images\1703122782-an-trung-167679482066650997439-8581-width645height471.jpg" />
+    <Content Include="Uploads\images\1703156809-thuong-ta-le-manh-ha-1703155057407863114886-width640height427.jpg" />
+    <Content Include="Uploads\images\1703405564-190-base64-17033955578111299424175-1703405564-width727height554.png" />
+    <Content Include="Uploads\images\1703408318-410520035-748803879911009-4754891960565672313-n-1460-2642-width850height478.jpg" />
+    <Content Include="Uploads\images\2024-Kia-Seltos-SX-dat-danh-hieu-SUV-thoai-mai-nhat-nam-2023-kia1-1703145528-84-width740height493.jpg" />
+    <Content Include="Uploads\images\bangiamkhao_4_eoji-1702976366-514-width1000height667.jpg" />
+    <Content Include="Uploads\images\Hang-tram-shophouse-biet-thu-bac-ty-bo-hoang-Vi-sao-khong-cho-thue-n3-1702980392-438-width2402height1601.jpg" />
+    <Content Include="Uploads\images\iPhone-15-Pro-Max-Xung-dang-3-1703001592-790-width1280height721.jpg" />
+    <Content Include="Uploads\images\jabeur1-1702982370-493-width740height511.jpg" />
+    <Content Include="Uploads\images\Screenshot 2023-12-13 165411.png" />
+    <Content Include="Uploads\images\untitled-3-1703059252-615-width700height713.jpg" />
+    <Content Include="Uploads\_thumbs\Images\1703122782-an-trung-167679482066650997439-8581-width645height471.jpg" />
+    <Content Include="Uploads\_thumbs\Images\1703156809-thuong-ta-le-manh-ha-1703155057407863114886-width640height427.jpg" />
+    <Content Include="Uploads\_thumbs\Images\1703405564-190-base64-17033955578111299424175-1703405564-width727height554.png" />
+    <Content Include="Uploads\_thumbs\Images\1703408318-410520035-748803879911009-4754891960565672313-n-1460-2642-width850height478.jpg" />
+    <Content Include="Uploads\_thumbs\Images\2024-Kia-Seltos-SX-dat-danh-hieu-SUV-thoai-mai-nhat-nam-2023-kia1-1703145528-84-width740height493.jpg" />
+    <Content Include="Uploads\_thumbs\Images\bangiamkhao_4_eoji-1702976366-514-width1000height667.jpg" />
+    <Content Include="Uploads\_thumbs\Images\Hang-tram-shophouse-biet-thu-bac-ty-bo-hoang-Vi-sao-khong-cho-thue-n3-1702980392-438-width2402height1601.jpg" />
+    <Content Include="Uploads\_thumbs\Images\iPhone-15-Pro-Max-Xung-dang-3-1703001592-790-width1280height721.jpg" />
+    <Content Include="Uploads\_thumbs\Images\jabeur1-1702982370-493-width740height511.jpg" />
+    <Content Include="Uploads\_thumbs\Images\Screenshot 2023-12-13 165411.png" />
+    <Content Include="Uploads\_thumbs\Images\untitled-3-1703059252-615-width700height713.jpg" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -3196,6 +3219,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Content\ckfinder\ckfinder\userfiles\" />
+    <Folder Include="Uploads\files\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
