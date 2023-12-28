@@ -184,6 +184,7 @@
     <Compile Include="Areas\Admin\Controllers\NewsController.cs" />
     <Compile Include="Areas\Admin\Controllers\PostsController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductCategoryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProductImagesController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -218,6 +219,14 @@
     <Compile Include="Migrations\202312250555141_UpdateProductCategory2.cs" />
     <Compile Include="Migrations\202312250555141_UpdateProductCategory2.designer.cs">
       <DependentUpon>202312250555141_UpdateProductCategory2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202312270701065_UpdateProduct.cs" />
+    <Compile Include="Migrations\202312270701065_UpdateProduct.designer.cs">
+      <DependentUpon>202312270701065_UpdateProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202312271015051_UpdatePriceSaleProduct.cs" />
+    <Compile Include="Migrations\202312271015051_UpdatePriceSaleProduct.designer.cs">
+      <DependentUpon>202312271015051_UpdatePriceSaleProduct.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -3147,6 +3156,9 @@
     <Content Include="Areas\Admin\Views\Products\Add.cshtml" />
     <Content Include="Areas\Admin\Views\ProductCategory\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ProductCategory\Add.cshtml" />
+    <Content Include="Areas\Admin\Views\Products\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductImages\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_LayoutEmpty.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -3255,6 +3267,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202312250555141_UpdateProductCategory2.resx">
       <DependentUpon>202312250555141_UpdateProductCategory2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202312270701065_UpdateProduct.resx">
+      <DependentUpon>202312270701065_UpdateProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202312271015051_UpdatePriceSaleProduct.resx">
+      <DependentUpon>202312271015051_UpdatePriceSaleProduct.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

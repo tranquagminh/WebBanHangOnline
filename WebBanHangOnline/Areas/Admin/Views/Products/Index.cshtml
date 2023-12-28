@@ -20,6 +20,7 @@
         </li>
     </ul>
 }
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css"/>
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <div class="container-fluid">
@@ -75,9 +76,9 @@
                         <tr id="trow_@item.Id">
                             <td><input type="checkbox" class="deleteBox" value="@item.Id" /></td>
                             <td>@i</td>
-                            <td><img src="@item.Image" width="50" /></td>
+                            <td><img data-id="@item.Id" class="imgproduct" src="@item.ProductImage.FirstOrDefault(x=>x.isDefault).Image" width="50" /></td>
                             <td>@item.Title</td>
-                            <td>@item.ProductCategory.Title</td>
+                            <td>@item.ProductCategory?.Title</td>
                             <td>@item.Quantity</td>
                             <td>@item.Price</td>
                             <td>@item.CreatedDate.ToString("dd/MM/yyyy")</td>
@@ -86,6 +87,7 @@
                             </td>
                             <td>
                                 <a href="/admin/Products/edit/@item.Id" class="btn btn-success">Sửa</a>
+                         
                                 <a href="#" data-id="@item.Id" class="btn btn-danger Btn-Delete">Xóa</a>
                             </td>
                         </tr>
@@ -120,10 +122,35 @@
 
 </section>
 <!-- /.content -->
-
+<div id="dialog">
+    <iframe id="myIframe" style="border:0;width:100%;height:100%">
+    </iframe>
+</div>
 @section scripts{
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
     <script>
         $(document).ready(function () {
+            // Hiển thị form upload ảnh
+            $("#dialog").dialog({
+                autoOpen: false,
+                show: "fade",
+                hide: "fade",
+                modal: true,
+                height: '600',
+                width: '700',
+                resizeable: true,
+                title: 'Quản lý sản phẩm',
+                close: function () {
+                    window.location.reload();
+                }
+            });
+            $('body').on("click", ".imgproduct", function () {
+                var proid = $(this).attr("data-id");
+                $("#dialog #myIframe").attr("src", "/admin/ProductImages/Index?id=" + proid);
+                $('#dialog').dialog('open');
+                return false;
+            });
+           
             // Click on Btn-Delete
             var a = document.querySelectorAll('.Btn-Delete')
 
@@ -150,7 +177,7 @@
 
             // Click on btnActive
             var ButtonActive = document.querySelectorAll('.btnActive')
-            console.log(ButtonActive)
+         
             for (let i of ButtonActive) {
                 i.onclick = function (e) {
                     e.preventDefault();
