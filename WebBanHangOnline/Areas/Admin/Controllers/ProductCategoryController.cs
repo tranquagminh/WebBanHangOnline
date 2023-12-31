@@ -26,7 +26,7 @@ namespace WebBanHangOnline.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Add(ProductCategory model)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 model.CreatedDate = DateTime.Now;
                 model.ModifierDate = DateTime.Now;
@@ -35,7 +35,30 @@ namespace WebBanHangOnline.Areas.Admin.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            
             return View();
+        }
+        public ActionResult Edit(int id)
+        {
+            var item = db.ProductCategories.Find(id);
+            return View(item);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(ProductCategory model)
+        {
+            if (ModelState.IsValid)
+            {
+                model.ModifierDate = DateTime.Now;
+                model.Alias = WebBanHangOnline.Models.Common.Filter.FilterChar(model.Title);
+                db.ProductCategories.Attach(model);
+                db.Entry(model).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            
+             return View(); 
+            
         }
     }
 }

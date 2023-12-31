@@ -106,6 +106,7 @@ namespace WebBanHangOnline.Areas.Admin.Controllers
 
                 model.ModifierDate = DateTime.Now;
                 model.Alias = WebBanHangOnline.Models.Common.Filter.FilterChar(model.Title);
+                model.Image = db.ProductImages.FirstOrDefault(x =>x.ProductId == model.Id && x.isDefault == true).Image;
                 db.Products.Attach(model);
                 db.Entry(model).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
@@ -122,6 +123,48 @@ namespace WebBanHangOnline.Areas.Admin.Controllers
                 db.Products.Remove(item);
                 db.SaveChanges();
                 return Json(new { success = true });
+            }
+            return Json(new { success = false });
+        }
+        [HttpPost]
+        public ActionResult IsActive(int id)
+        {
+            var item = db.Products.Find(id);
+            if (item != null)
+            {
+                item.IsActive = !item.IsActive;
+                db.Products.Attach(item);
+                db.Entry(item).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                return Json(new { success = true, isActive = item.IsActive });
+            }
+            return Json(new { success = false });
+        }
+        [HttpPost]
+        public ActionResult IsHome(int id)
+        {
+            var item = db.Products.Find(id);
+            if (item != null)
+            {
+                item.isHome = !item.isHome;
+                db.Products.Attach(item);
+                db.Entry(item).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                return Json(new { success = true, isHome = item.isHome });
+            }
+            return Json(new { success = false });
+        }
+        [HttpPost]
+        public ActionResult IsSale(int id)
+        {
+            var item = db.Products.Find(id);
+            if (item != null)
+            {
+                item.isSale = !item.isSale;
+                db.Products.Attach(item);
+                db.Entry(item).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                return Json(new { success = true, isSale = item.isSale });
             }
             return Json(new { success = false });
         }

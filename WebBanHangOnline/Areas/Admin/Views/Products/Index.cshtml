@@ -63,6 +63,8 @@
                     <th>Số lượng</th>
                     <th>Giá</th>
                     <th>Ngày tạo</th>
+                    <th>Home</th>
+                    <th>Sale</th>
                     <th>Hiển thị</th>
 
                     <th></th>
@@ -73,21 +75,29 @@
                     foreach (var item in Model)
                     {
                         var strCheck = item.IsActive ? " <i class=\"fa fa-check text-success\"></i>" : " <i class=\"fa fa-times text-danger\"></i>";
+                        var strHomeCheck = item.isHome ? " <i class=\"fa fa-check text-success\"></i>" : " <i class=\"fa fa-times text-danger\"></i>";
+                        var strSaleCheck = item.isSale ? " <i class=\"fa fa-check text-success\"></i>" : " <i class=\"fa fa-times text-danger\"></i>";
                         <tr id="trow_@item.Id">
                             <td><input type="checkbox" class="deleteBox" value="@item.Id" /></td>
                             <td>@i</td>
                             <td><img data-id="@item.Id" class="imgproduct" src="@item.ProductImage.FirstOrDefault(x=>x.isDefault).Image" width="50" /></td>
                             <td>@item.Title</td>
-                            <td>@item.ProductCategory?.Title</td>
+                            <td>@item.ProductCategory.Title</td>
                             <td>@item.Quantity</td>
                             <td>@item.Price</td>
                             <td>@item.CreatedDate.ToString("dd/MM/yyyy")</td>
+                            <td class="text-center">
+                                <a href='#' data-id="@item.Id" class="btnHome"> @Html.Raw(strHomeCheck)</a>
+                            </td>
+                            <td class="text-center">
+                                <a href='#' data-id="@item.Id" class="btnSale"> @Html.Raw(strSaleCheck)</a>
+                            </td>
                             <td class="text-center">
                                 <a href='#' data-id="@item.Id" class="btnActive"> @Html.Raw(strCheck)</a>
                             </td>
                             <td>
                                 <a href="/admin/Products/edit/@item.Id" class="btn btn-success">Sửa</a>
-                         
+
                                 <a href="#" data-id="@item.Id" class="btn btn-danger Btn-Delete">Xóa</a>
                             </td>
                         </tr>
@@ -189,6 +199,58 @@
                         success: function (rs) {
                             if (rs.success) {
                                 if (rs.isActive) {
+                                    i.innerHTML = "<i class='fa fa-check text-success'></i>";
+                                }
+                                else {
+                                    i.innerHTML = "<i class='fa fa-times text-danger'></i>";
+                                }
+                            }
+
+                        }
+                    });
+                }
+            }
+
+            // Click on btnHome
+            var ButtonHome = document.querySelectorAll('.btnHome')
+
+            for (let i of ButtonHome) {
+                i.onclick = function (e) {
+                    e.preventDefault();
+                    var id = i.dataset.id
+                    $.ajax({
+                        url: '/admin/Products/IsHome',
+                        type: 'POST',
+                        data: { id: id },
+                        success: function (rs) {
+                            if (rs.success) {
+                                if (rs.isHome) {
+                                    i.innerHTML = "<i class='fa fa-check text-success'></i>";
+                                }
+                                else {
+                                    i.innerHTML = "<i class='fa fa-times text-danger'></i>";
+                                }
+                            }
+
+                        }
+                    });
+                }
+            }
+
+            // Click on btnSale
+            var ButtonSale = document.querySelectorAll('.btnSale')
+
+            for (let i of ButtonSale) {
+                i.onclick = function (e) {
+                    e.preventDefault();
+                    var id = i.dataset.id
+                    $.ajax({
+                        url: '/admin/Products/IsSale',
+                        type: 'POST',
+                        data: { id: id },
+                        success: function (rs) {
+                            if (rs.success) {
+                                if (rs.isSale) {
                                     i.innerHTML = "<i class='fa fa-check text-success'></i>";
                                 }
                                 else {
