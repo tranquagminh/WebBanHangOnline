@@ -12,7 +12,26 @@ namespace WebBanHangOnline
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.MapRoute(
+                name: "Contact",
+                url: "lien-he/{Alias}",
+                defaults: new { controller = "Contact", action = "Index", Alias = UrlParameter.Optional },
+                namespaces: new[] { "WebBanHangOnline.Controllers" }
+            );
+            routes.MapRoute(
+                name: "Products",
+                url: "danh-muc-san-pham/{alias}-{id}",
+                defaults: new { controller = "Products", action = "ProductCategory", alias = UrlParameter.Optional, id = UrlParameter.Optional },
+                namespaces: new[] { "WebBanHangOnline.Controllers" }
 
+            );
+            routes.MapRoute(
+                name: "CategoryProduct",
+                url: "san-pham/{Alias}",
+                defaults: new { controller = "Products", action = "Index", Alias = UrlParameter.Optional },
+                namespaces: new[] { "WebBanHangOnline.Controllers" }
+
+            );
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
