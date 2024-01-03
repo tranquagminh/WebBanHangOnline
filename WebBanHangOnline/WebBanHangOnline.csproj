@@ -3274,6 +3274,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jsShopping.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Uploads\images\1703122782-an-trung-167679482066650997439-8581-width645height471.jpg" />
     <Content Include="Uploads\images\1703156809-thuong-ta-le-manh-ha-1703155057407863114886-width640height427.jpg" />
@@ -3339,6 +3340,7 @@
     <Content Include="Views\Contact\Index.cshtml" />
     <Content Include="Views\Menu\_MenuLeft.cshtml" />
     <Content Include="Views\Products\ProductCategory.cshtml" />
+    <Content Include="Views\Products\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
