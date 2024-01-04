@@ -193,6 +193,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -254,6 +255,7 @@
     <Compile Include="Models\EF\SystemSetting.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ShoppingCart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -3341,6 +3343,7 @@
     <Content Include="Views\Menu\_MenuLeft.cshtml" />
     <Content Include="Views\Products\ProductCategory.cshtml" />
     <Content Include="Views\Products\Detail.cshtml" />
+    <Content Include="Views\ShoppingCart\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
