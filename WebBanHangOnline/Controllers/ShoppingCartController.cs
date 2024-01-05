@@ -13,13 +13,37 @@ namespace WebBanHangOnline.Controllers
         // GET: ShoppingCart
         public ActionResult Index()
         {
+           
+            return View();
+        }
+        public ActionResult CheckOut()
+        {
             ShoppingCart cart = (ShoppingCart)Session["Cart"];
-            if(cart != null)
+            if (cart != null)
             {
-                return View(cart.Items);
+                ViewBag.CheckCart = cart;
             }
             return View();
         }
+        public ActionResult Partial_Item_ThanhToan()
+        {
+            ShoppingCart cart = (ShoppingCart)Session["Cart"];
+            if (cart != null)
+            {
+                return PartialView(cart.Items);
+            }
+            return PartialView();
+        }
+        public ActionResult Partial_Item_Cart()
+        {
+            ShoppingCart cart = (ShoppingCart)Session["Cart"];
+            if (cart != null)
+            {
+                return PartialView(cart.Items);
+            }
+            return PartialView();
+        }
+
         public ActionResult ShowCount()
         {
             ShoppingCart cart = (ShoppingCart)Session["Cart"];
@@ -70,6 +94,18 @@ namespace WebBanHangOnline.Controllers
         }
 
         [HttpPost]
+        public ActionResult Update(int id, int quantity)
+        {
+            ShoppingCart cart = (ShoppingCart)Session["Cart"];
+            if (cart != null)
+            {
+                cart.UpdateQuantity(id,quantity);
+                return Json(new { Success = true });
+            }
+            return Json(new { Success = false });
+        }
+
+        [HttpPost]
         public ActionResult Delete(int id)
         {
             var code = new { Success = false, msg = "", code = -1, Count = 0 };
@@ -86,6 +122,18 @@ namespace WebBanHangOnline.Controllers
             }
 
             return Json(code);
+        }
+
+        [HttpPost]
+        public ActionResult DeleteAll()
+        {
+            ShoppingCart cart = (ShoppingCart)Session["Cart"];
+            if(cart != null)
+            {
+                cart.ClearCart();
+                return Json(new { Success = true});
+            }
+            return Json(new { Success = false});
         }
     }
 }

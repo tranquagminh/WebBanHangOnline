@@ -27,7 +27,7 @@ namespace WebBanHangOnline.Models
         }
         public void Remove(int id)
         {
-            var checkExisting = Items.FirstOrDefault(x => x.ProductId!= id);
+            var checkExisting = Items.FirstOrDefault(x => x.ProductId == id);
             if (checkExisting != null) 
             { 
                 Items.Remove(checkExisting);
@@ -36,7 +36,7 @@ namespace WebBanHangOnline.Models
         }
         public void UpdateQuantity(int id,int quantity) 
         { 
-            var checkExisting = Items.FirstOrDefault(x => x.ProductId!= id);
+            var checkExisting = Items.FirstOrDefault(x => x.ProductId == id);
             if (checkExisting != null)
             {
                 checkExisting.Quantity = quantity;

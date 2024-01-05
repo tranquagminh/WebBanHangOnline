@@ -26,57 +26,14 @@
 
             <!-- Main Content -->
             <div class="row">
+                <div class="col-md-12" id="load_data">
+                  @Html.Action("Partial_Item_Cart", "ShoppingCart")
+                </div>
                 <div class="col-md-12">
-                    <table class="table">
-                        <tr class="text-center">
-                            <th>STT</th>
-                            <th>Ảnh sản phẩm</th>
-                            <th>Tên sản phẩm</th>
-                            <th>Danh mục</th>
-                            <th>Giá</th>
-
-                            <th>Số lượng</th>
-                            <th>Thành tiền</th>
-                            <th>
-
-                            </th>
-                        </tr>
-                        @if (Model != null && Model.Any())
-                         {
-                                var i = 0;
-                                var tongTien = decimal.Zero;
-                                foreach (var item in Model)
-                                {
-                                    tongTien += item.TotalPrice;
-                                    <tr class="text-center" id="trow_@item.ProductId">
-                                        <td>@(i+1)</td>
-                                        <td><img style="width:100px;height:100px" src="@item.ProductImg" alt="(@item.ProductName)_@(item.ProductId)" /></td>
-                                        <td><a href="/chi-tiet/@item.Alias-p@(item.ProductId)">@item.ProductName</a></td>
-                                        <td>@item.CategoryName</td>
-                                        <td>@WebBanHangOnline.Common.Common.FormatNumber(item.Price, 0)</td>
-
-                                        <td>@item.Quantity</td>
-                                        <th>@WebBanHangOnline.Common.Common.FormatNumber(item.TotalPrice, 2)</th>
-                                        <td>
-                                            <a href="#" data-id="@item.ProductId" class="btn btn-sm btn-danger btnDelete">Xóa</a>
-                                        </td>
-                                    </tr>
-                                    i++;
-                                }
-                    <tr>
-                        <th colspan="6" class="text-right">Tổng tiền:</th>
-                        <th>@WebBanHangOnline.Common.Common.FormatNumber(tongTien,0)</th>
-                        <th></th>
-                      
-                    </tr>
-                        }
-                        else
-                        {
-                            <tr >
-                                <th class="text-center" colspan="7">Không có sản phẩm nào</th>
-                            </tr>
-                        }
-                    </table>
+                    <div class="text-right">
+                        <a href="#" class="btn  btn-danger btnDeleteAll">Xóa</a>
+                        <a href="/thanh-toan" class="btn btn-success">Thanh toán</a>
+                    </div>
                 </div>
             </div>
             
