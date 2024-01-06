@@ -1,11 +1,14 @@
 ﻿
-
+@model WebBanHangOnline.Models.OrderViewModel
 @{
     ViewBag.Title = "Thanh toán";
 }
 
-
-
+<style>
+    .error{
+        color:red;
+    }
+</style>
 
 <link rel="stylesheet" type="text/css" href="~/Content/assets/styles/categories_styles.css">
 <link rel="stylesheet" type="text/css" href="~/Content/assets/styles/categories_responsive.css">
@@ -33,37 +36,49 @@
                 </div>
             </div>
             <hr />
-            @if (ViewBag.CheckCart != null)
+            @if (ViewBag.CheckCart.Items.Count != 0)
             {
                 <div class="row">
+                    <div  id="show_success"></div>
                     <div class="col-md-9">
-                        <h3>Thông tin khách hàng</h3>
-                        <div class="form-group">
-                            <label for="CustomerName">Họ tên khách hàng</label>
-                            <input type="text" name="CustomerName" id="CustomerName" class="form-control" autocomplete="off" />
-                        </div>
-                        <div class="form-group">
-                            <label for="CustomerPhoneNumber">Số điện thoại</label>
-                            <input type="text" name="CustomerPhoneNumber" id="CustomerPhoneNumber" class="form-control" autocomplete="off" />
-                        </div>
-                        <div class="form-group">
-                            <label for="CustomerAddress">Địa chỉ</label>
-                            <input type="text" name="CustomerAddress" id="CustomerAddress" class="form-control" autocomplete="off" />
-                        </div>
-                        <div class="form-group">
-                            <label for="CustomerEmail">Email</label>
-                            <input type="text" name="CustomerEmail" id="CustomerEmail" class="form-control" autocomplete="off" />
-                        </div>
-                        <div class="form-group">
-                            <label for="Payment">Hình thức thanh toán</label>
-                            <select class="form-control" name="Payment" id="Payment">
-                                <option value="1" selected>COD</option>
-                                <option value="2">Chuyển khoản</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <button type="button" class="btn btn-success btn-block">Đặt hàng</button>
-                        </div>
+                        @using (Ajax.BeginForm("CheckOut", "ShoppingCart", new AjaxOptions
+                        {
+                            HttpMethod = "POST",
+                            UpdateTargetId = "load_data",
+                            OnComplete = "OnSuccessCO",
+                            OnFailure = "OnFailure"
+                        },new { @Id= "myForm"}))
+                        {
+                            @Html.AntiForgeryToken()
+                            <h3>Thông tin khách hàng</h3>
+                            <div class="form-group">
+                                <label for="CustomerName">Họ tên khách hàng</label>
+                                <input type="text" name="CustomerName"  id="CustomerName" class="form-control" autocomplete="off" />
+                            </div>
+                            <div class="form-group">
+                                <label for="Phone">Số điện thoại</label>
+                                <input type="text" name="Phone" id="Phone" class="form-control" autocomplete="off" />
+                            </div>
+                            <div class="form-group">
+                                <label for="Address">Địa chỉ</label>
+                                <input type="text" name="Address" id="Address" class="form-control" autocomplete="off" />
+                            </div>
+                            <div class="form-group">
+                                <label for="CustomerEmail">Email</label>
+                                <input type="text" name="CustomerEmail" id="CustomerEmail" class="form-control" autocomplete="off" />
+                            </div>
+                            <div class="form-group">
+                                <label for="TypePayment">Hình thức thanh toán</label>
+                                <select class="form-control" name="TypePayment" id="TypePayment">
+                                    <option value="1" selected>COD</option>
+                                    <option value="2">Chuyển khoản</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success btn-block">Đặt hàng</button>
+                            </div>
+                        }
+
                     </div>
                     <div class="col-md-3">
                         @Html.Action("Partial_Item_ThanhToan", "ShoppingCart")
@@ -83,6 +98,38 @@
 
 @section scripts{
     <script src="~/Content/assets/js/categories_custom.js"></script>
+    <script>
+        function OnFailure(rs) {
+            if (!rs.Success) {
+                $('#show_success').html("Bạn đã mua hàng thất bại! Xin vui lòng thử lại!");
+            }
+        }
+        $(document).ready(function () {
+            $('#myForm').validate({
+                rules: {
+                    'CustomerName': {
+                        required: true
+                    },
+                    'Phone': {
+                        required: true
+                    },
+                    'Address': {
+                        required: true
+                    },
+                    'CustomerEmail': {
+                        required: true,
+                        email: true
+                    }
+                },
+                messages: {
+                    'CustomerName': 'Bạn không được để trống trường này',
+                    'Phone': 'Bạn không được để trống trường này',
+                    'Address': 'Bạn không được để trống trường này',
+                    'CustomerEmail': 'Email không hợp lệ',
+                },
+            });
+        });
+    </script>
 }
 
 

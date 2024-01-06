@@ -1,53 +1,67 @@
 ﻿@model IEnumerable<WebBanHangOnline.Models.ShoppingCartItem>
-<table class="table">
-    <tr class="text-center">
-        <th>STT</th>
-        <th>Ảnh sản phẩm</th>
-        <th>Tên sản phẩm</th>
-        <th>Danh mục</th>
-        <th>Giá</th>
 
-        <th style="width:100px;">Số lượng</th>
-        <th>Thành tiền</th>
-        <th style="width:200px">
+<div class="col-md-12" >
+    <table class="table">
+        <tr class="text-center">
+            <th>STT</th>
+            <th>Ảnh sản phẩm</th>
+            <th>Tên sản phẩm</th>
+            <th>Danh mục</th>
+            <th>Giá</th>
 
-        </th>
-    </tr>
-    @if (Model != null && Model.Any())
-    {
-        var i = 0;
-        var tongTien = decimal.Zero;
-        foreach (var item in Model)
+            <th style="width:100px;">Số lượng</th>
+            <th>Thành tiền</th>
+            <th style="width:200px">
+
+            </th>
+        </tr>
+        @if (Model != null && Model.Any())
         {
-            tongTien += item.TotalPrice;
-            <tr class="text-center" id="trow_@item.ProductId">
-                <td>@(i+1)</td>
-                <td><img style="width:100px;height:100px" src="@item.ProductImg" alt="(@item.ProductName)_@(item.ProductId)" /></td>
-                <td><a href="/chi-tiet/@item.Alias-p@(item.ProductId)">@item.ProductName</a></td>
-                <td>@item.CategoryName</td>
-                <td>@WebBanHangOnline.Common.Common.FormatNumber(item.Price, 0)</td>
+            var i = 0;
+            var tongTien = decimal.Zero;
+            foreach (var item in Model)
+            {
+                tongTien += item.TotalPrice;
+                <tr class="text-center" id="trow_@item.ProductId">
+                    <td>@(i+1)</td>
+                    <td><img style="width:100px;height:100px" src="@item.ProductImg" alt="(@item.ProductName)_@(item.ProductId)" /></td>
+                    <td><a href="/chi-tiet/@item.Alias-p@(item.ProductId)">@item.ProductName</a></td>
+                    <td>@item.CategoryName</td>
+                    <td>@WebBanHangOnline.Common.Common.FormatNumber(item.Price, 0)</td>
 
-                <td><input type="number" class="form-control" id="Quantity_@item.ProductId" value="@item.Quantity" /></td>
-                <th>@WebBanHangOnline.Common.Common.FormatNumber(item.TotalPrice, 2)</th>
-                <td>
-                    <a href="#" data-id="@item.ProductId" class="btn btn-sm btn-danger btnDelete">Xóa</a>
-                    <a href="#" data-id="@item.ProductId"  class="btn btn-sm btn-success btnUpdate">Cập nhập</a>
-                </td>
+                    <td><input type="number" class="form-control" id="Quantity_@item.ProductId" value="@item.Quantity" /></td>
+                    <th>@WebBanHangOnline.Common.Common.FormatNumber(item.TotalPrice, 2)</th>
+                    <td>
+                        <a href="#" data-id="@item.ProductId" class="btn btn-sm btn-danger btnDelete">Xóa</a>
+                        <a href="#" data-id="@item.ProductId" class="btn btn-sm btn-success btnUpdate">Cập nhập</a>
+                    </td>
+                </tr>
+                i++;
+            }
+            <tr>
+                <th colspan="6" class="text-right">Tổng tiền:</th>
+                <th>@WebBanHangOnline.Common.Common.FormatNumber(tongTien, 0)</th>
+                <th></th>
+
             </tr>
-            i++;
-        }
-        <tr>
-            <th colspan="6" class="text-right">Tổng tiền:</th>
-            <th>@WebBanHangOnline.Common.Common.FormatNumber(tongTien, 0)</th>
-            <th></th>
 
-        </tr>
-       
-    }
-    else
+        }
+        else
+        {
+            <tr>
+                <th class="text-center" colspan="7">Không có sản phẩm nào</th>
+            </tr>
+        }
+    </table>
+</div>
+
+<div class="col-md-12">
+    @if (ViewBag.CheckCart != null)
     {
-        <tr>
-            <th class="text-center" colspan="7">Không có sản phẩm nào</th>
-        </tr>
+        <div class="text-right">
+            <a href="#" class="btn  btn-danger btnDeleteAll">Xóa</a>
+            <a href="/thanh-toan" class="btn btn-success">Thanh toán</a>
+        </div>
     }
-</table>
+
+</div>
