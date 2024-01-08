@@ -252,6 +252,10 @@
     <Compile Include="Migrations\202401070755051_UpdateAnalysisTable.designer.cs">
       <DependentUpon>202401070755051_UpdateAnalysisTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202401080816267_UpdateOrder_V1.cs" />
+    <Compile Include="Migrations\202401080816267_UpdateOrder_V1.designer.cs">
+      <DependentUpon>202401080816267_UpdateOrder_V1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Common\Filter.cs" />
@@ -3129,6 +3133,8 @@
     <Content Include="Content\clients\plugins\uplot\uPlot.iife.min.js" />
     <Content Include="Content\clients\plugins\uplot\uPlot.min.css" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\template\send1.html" />
+    <Content Include="Content\template\send2.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -3428,6 +3434,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202401070755051_UpdateAnalysisTable.resx">
       <DependentUpon>202401070755051_UpdateAnalysisTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202401080816267_UpdateOrder_V1.resx">
+      <DependentUpon>202401080816267_UpdateOrder_V1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

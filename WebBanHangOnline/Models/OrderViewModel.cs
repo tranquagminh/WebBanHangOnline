@@ -14,6 +14,7 @@ namespace WebBanHangOnline.Models
         public string Phone { get; set; }
         [Required(ErrorMessage = "Địa chỉ này không để trống")]
         public string Address { get; set; }
+        public string Email { get; set; }
         public int TypePayment { get; set; }
     }
 }

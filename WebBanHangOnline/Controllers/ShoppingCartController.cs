@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
@@ -95,6 +96,43 @@ namespace WebBanHangOnline.Controllers
                     order.Code = "DH" + rd.Next(0,9) + rd.Next(0, 9) + rd.Next(0, 9) + rd.Next(0, 9);
                     db.Orders.Add(order); 
                     db.SaveChanges();
+                    // Send Mail cho khách hàng
+                    var strSanPham = "";
+                    var thanhtien = decimal.Zero;
+                    var tongtien = decimal.Zero;
+                    foreach (var sp in cart.Items)
+                    {
+                        strSanPham += "<tr>";
+                        strSanPham += "<td>"+sp.ProductName+"</td>";
+                        strSanPham += "<td>"+sp.Quantity+"</td>";
+                        strSanPham += "<td>"+WebBanHangOnline.Common.Common.FormatNumber(sp.TotalPrice,0) +"</td>";
+                        strSanPham += "</tr>";
+                        thanhtien += sp.Price * sp.Quantity;
+                    }
+                    tongtien = thanhtien;
+                    string contentCustomer = System.IO.File.ReadAllText(Server.MapPath("~/Content/template/send2.html"));
+                    contentCustomer = contentCustomer.Replace("{{MaDon}}",order.Code);
+                    contentCustomer = contentCustomer.Replace("{{SanPham}}",strSanPham);
+                    contentCustomer = contentCustomer.Replace("{{TenKhachHang}}",order.CustomerName);
+                    contentCustomer = contentCustomer.Replace("{{NgayDat}}", DateTime.Now.ToString("dd/MM/yyyy"));
+                    contentCustomer = contentCustomer.Replace("{{Phone}}",order.Phone);
+                    contentCustomer = contentCustomer.Replace("{{Email}}",req.Email);
+                    contentCustomer = contentCustomer.Replace("{{ThanhTien}}", WebBanHangOnline.Common.Common.FormatNumber(thanhtien,0));
+                    contentCustomer = contentCustomer.Replace("{{TongTien}}", WebBanHangOnline.Common.Common.FormatNumber(tongtien,0));
+                    contentCustomer = contentCustomer.Replace("{{DiaChiNhanHang}}",order.Address);
+                    WebBanHangOnline.Common.Common.SendMail("ShopOnline", "Đơn hàng #"+order.Code, contentCustomer.ToString(),req.Email);
+
+                    string contentAdmin = System.IO.File.ReadAllText(Server.MapPath("~/Content/template/send1.html"));
+                    contentAdmin = contentAdmin.Replace("{{MaDon}}", order.Code);
+                    contentAdmin = contentAdmin.Replace("{{SanPham}}", strSanPham);
+                    contentAdmin = contentAdmin.Replace("{{TenKhachHang}}", order.CustomerName);
+                    contentAdmin = contentAdmin.Replace("{{NgayDat}}", DateTime.Now.ToString("dd/MM/yyyy"));
+                    contentAdmin = contentAdmin.Replace("{{Phone}}", order.Phone);
+                    contentAdmin = contentAdmin.Replace("{{Email}}", req.Email);
+                    contentAdmin = contentAdmin.Replace("{{ThanhTien}}", WebBanHangOnline.Common.Common.FormatNumber(thanhtien, 0));
+                    contentAdmin = contentAdmin.Replace("{{TongTien}}", WebBanHangOnline.Common.Common.FormatNumber(tongtien, 0));
+                    contentAdmin = contentAdmin.Replace("{{DiaChiNhanHang}}", order.Address);
+                    WebBanHangOnline.Common.Common.SendMail("ShopOnline", "Đơn hàng mới #" + order.Code, contentAdmin.ToString(), ConfigurationManager.AppSettings["EmailAdmin"]);
                     cart.ClearCart();
                    return RedirectToAction("CheckOutSuccess");
                 }
