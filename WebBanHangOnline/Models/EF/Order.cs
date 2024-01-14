@@ -10,9 +10,10 @@ namespace WebBanHangOnline.Models.EF
     [Table("tb_Order")]
     public class Order : CommonAbstract
     {
-        public Order() { 
+        public Order()
+        {
             this.Details = new HashSet<OrderDetail>();
-        }  
+        }
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }

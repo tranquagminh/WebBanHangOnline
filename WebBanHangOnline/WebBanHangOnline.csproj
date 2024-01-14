@@ -185,6 +185,7 @@
     <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\NewsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\OrderController.cs" />
     <Compile Include="Areas\Admin\Controllers\PostsController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductCategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductImagesController.cs" />
@@ -255,6 +256,10 @@
     <Compile Include="Migrations\202401080816267_UpdateOrder_V1.cs" />
     <Compile Include="Migrations\202401080816267_UpdateOrder_V1.designer.cs">
       <DependentUpon>202401080816267_UpdateOrder_V1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202401131107321_DropOrderDetail.cs" />
+    <Compile Include="Migrations\202401131107321_DropOrderDetail.designer.cs">
+      <DependentUpon>202401131107321_DropOrderDetail.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -3292,6 +3297,9 @@
     <Content Include="Content\assets\plugins\themify-icons\fonts\themify.ttf" />
     <Content Include="Content\assets\plugins\themify-icons\fonts\themify.woff" />
     <Content Include="Areas\Admin\Views\ProductCategory\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Order\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Order\View.cshtml" />
+    <Content Include="Areas\Admin\Views\Order\Partial_SanPham.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -3365,7 +3373,6 @@
     <Content Include="Views\Menu\_MenuProductCategoryNavBar.cshtml" />
     <Content Include="Views\Products\_ListProduct.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
-    <Content Include="Views\Contact\Index.cshtml" />
     <Content Include="Views\Menu\_MenuLeft.cshtml" />
     <Content Include="Views\Products\ProductCategory.cshtml" />
     <Content Include="Views\Products\Detail.cshtml" />
@@ -3375,6 +3382,7 @@
     <Content Include="Views\ShoppingCart\CheckOut.cshtml" />
     <Content Include="Views\ShoppingCart\CheckOutSuccess.cshtml" />
     <Content Include="Views\Home\Refresh.cshtml" />
+    <Content Include="Views\Contact\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -3437,6 +3445,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202401080816267_UpdateOrder_V1.resx">
       <DependentUpon>202401080816267_UpdateOrder_V1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202401131107321_DropOrderDetail.resx">
+      <DependentUpon>202401131107321_DropOrderDetail.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
