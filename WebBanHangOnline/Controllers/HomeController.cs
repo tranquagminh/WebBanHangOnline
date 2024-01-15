@@ -7,11 +7,14 @@ using WebBanHangOnline.Models;
 
 namespace WebBanHangOnline.Controllers
 {
+    
     public class HomeController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
         public ActionResult Index()
         {
-            return View();
+            var items = db.Products.ToList();
+            return View(items);
         }
 
         public ActionResult About()
