@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebBanHangOnline.Models;
+using WebBanHangOnline.Models.EF;
 
 namespace WebBanHangOnline.Controllers
 {
@@ -16,7 +17,25 @@ namespace WebBanHangOnline.Controllers
             var items = db.Products.ToList();
             return View(items);
         }
-
+        public ActionResult Partial_Subcribe() 
+        { 
+            var item = db.Subcribes.FirstOrDefault();
+            return PartialView(item);
+        }
+        [HttpPost]
+        public ActionResult Subcribe(Subcribe req)
+        {
+            if(ModelState.IsValid)
+            {
+                db.Subcribes.Add(new Subcribe { 
+                    CreatedDate= DateTime.Now ,
+                    Email = req.Email,
+                });
+                db.SaveChanges();
+                return Json(new {Success = true});
+            }
+            return View("Partial_Subcribe", req);
+        }
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

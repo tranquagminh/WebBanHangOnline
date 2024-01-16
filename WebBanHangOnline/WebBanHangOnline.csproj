@@ -267,6 +267,10 @@
     <Compile Include="Migrations\202401131107321_DropOrderDetail.designer.cs">
       <DependentUpon>202401131107321_DropOrderDetail.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202401160207162_UpdateSubcribe.cs" />
+    <Compile Include="Migrations\202401160207162_UpdateSubcribe.designer.cs">
+      <DependentUpon>202401160207162_UpdateSubcribe.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Common\Filter.cs" />
@@ -3471,6 +3475,7 @@
     <Content Include="Views\Home\Refresh.cshtml" />
     <Content Include="Views\Contact\Index.cshtml" />
     <Content Include="Views\News\Partial_News_Home.cshtml" />
+    <Content Include="Views\Home\Partial_Subcribe.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -3537,6 +3542,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202401131107321_DropOrderDetail.resx">
       <DependentUpon>202401131107321_DropOrderDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202401160207162_UpdateSubcribe.resx">
+      <DependentUpon>202401160207162_UpdateSubcribe.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
