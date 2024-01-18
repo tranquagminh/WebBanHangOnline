@@ -1,0 +1,35 @@
+﻿@model WebBanHangOnline.Models.EF.News
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .new_section_container {
+        margin-top:180px;
+    }
+
+</style>
+<div class="container new_section_container">
+    @if (Model != null)
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="title-news">
+                    @Model.Title
+                </h2>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-md-12">
+                @Model.Description
+            </div>
+            <div class="col-md-12">
+                @Html.Raw(Model.Detail)
+            </div>
+        </div>
+    }
+
+</div>
+
+

@@ -136,7 +136,7 @@ namespace WebBanHangOnline.Controllers
                     contentAdmin = contentAdmin.Replace("{{DiaChiNhanHang}}", order.Address);
                     WebBanHangOnline.Common.Common.SendMail("ShopOnline", "Đơn hàng mới #" + order.Code, contentAdmin.ToString(), ConfigurationManager.AppSettings["EmailAdmin"]);
                     cart.ClearCart();
-                    return RedirectToAction("CheckOutSuccess");
+                    return Json(new { Success = true, RedirectUrl = Url.Action("CheckOutSuccess", "ShoppingCart") });
                 }
             }
             return Json(code);

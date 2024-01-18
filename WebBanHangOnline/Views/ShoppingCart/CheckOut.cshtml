@@ -5,8 +5,8 @@
 }
 
 <style>
-    .error{
-        color:red;
+    .error {
+        color: red;
     }
 </style>
 
@@ -36,24 +36,25 @@
                 </div>
             </div>
             <hr />
-            @if (ViewBag.CheckCart.Items.Count != 0)
+            @if (ViewBag.CheckCart != null)
             {
                 <div class="row">
-                    <div  id="show_success"></div>
+                    <div id="show_success"></div>
                     <div class="col-md-9">
                         @using (Ajax.BeginForm("CheckOut", "ShoppingCart", new AjaxOptions
                         {
                             HttpMethod = "POST",
                             UpdateTargetId = "load_data",
                             OnComplete = "OnSuccessCO",
-                            OnFailure = "OnFailure"
-                        },new { @Id= "myForm"}))
+                            OnFailure = "OnFailure",
+                            
+                        }, new { @Id = "myForm" }))
                         {
                             @Html.AntiForgeryToken()
                             <h3>Thông tin khách hàng</h3>
                             <div class="form-group">
                                 <label for="CustomerName">Họ tên khách hàng</label>
-                                <input type="text" name="CustomerName"  id="CustomerName" class="form-control" autocomplete="off" />
+                                <input type="text" name="CustomerName" id="CustomerName" class="form-control" autocomplete="off" />
                             </div>
                             <div class="form-group">
                                 <label for="Phone">Số điện thoại</label>
@@ -102,6 +103,16 @@
         function OnFailure(rs) {
             if (!rs.Success) {
                 $('#show_success').html("Bạn đã mua hàng thất bại! Xin vui lòng thử lại!");
+            }
+        }
+        function OnSuccessCO(rs) {
+            if (rs.responseJSON.Success) {
+
+                // Redirect to the specified URL
+                window.location.href = rs.responseJSON.RedirectUrl;
+            } else {
+                // Handle other success scenarios if needed
+                console.log("Form submission failed!");
             }
         }
         $(document).ready(function () {
