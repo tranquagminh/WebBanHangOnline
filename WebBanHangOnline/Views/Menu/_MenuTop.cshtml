@@ -7,13 +7,13 @@
         {
             if (item.Alias.Equals("trang-chu"))
             {
-                <li><a href="/">@item.Title</a></li>
+                item.Alias = "";
             }
-            else
+            if (!string.IsNullOrEmpty(item.Link))
             {
-                <li><a href="/@item.Alias">@item.Title</a></li>
+                item.Alias = item.Link;
             }
-
+            <li><a href="/@item.Alias">@item.Title</a></li>
         }
     </ul>
 }

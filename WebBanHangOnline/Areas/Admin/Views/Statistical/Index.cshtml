@@ -94,7 +94,7 @@
             $.ajax({
                 url: '/Statistical/GetStatistical',
                 type: 'GET',
-                data: {fromDate:'',toDate:''},
+                data: { fromDate: '', toDate:''},
                 success: function (rs) {
                    
                     $.each(rs.Data, function (i, item) {

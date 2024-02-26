@@ -64,6 +64,7 @@ namespace WebBanHangOnline.Areas.Admin.Controllers
                 model.Alias = WebBanHangOnline.Models.Common.Filter.FilterChar(model.Title);
                 db.Entry(model).Property(x => x.Title).IsModified = true; 
                 db.Entry(model).Property(x => x.Descriptiond).IsModified = true;
+                db.Entry(model).Property(x => x.Link).IsModified = true;
                 db.Entry(model).Property(x => x.Alias).IsModified = true;
                 db.Entry(model).Property(x => x.SeoDescription).IsModified = true;
                 db.Entry(model).Property(x => x.SeoKeyWords).IsModified = true;

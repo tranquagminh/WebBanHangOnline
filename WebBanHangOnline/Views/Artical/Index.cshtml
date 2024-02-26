@@ -1,0 +1,60 @@
+﻿@model WebBanHangOnline.Models.EF.Posts
+
+@{
+    ViewBag.Title = "Chi tiết bài viết";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link type="text/css" href="~/Content/assets/styles/main_styles.css" rel="stylesheet" />
+
+<style>
+    .new_section_container {
+        margin-top: 180px;
+    }
+
+    .row_item-new {
+        margin-bottom: 20px;
+    }
+
+    .title-news {
+        font-size: 24px;
+        border-bottom: 1px solid;
+        padding: 15px 0;
+        margin-bottom: 25px
+    }
+
+    .img-box img {
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    .content-box h3 a {
+        color: black;
+    }
+
+        .content-box h3 a:hover {
+            opacity: 0.5;
+        }
+</style>
+<div class="container new_section_container">
+    @if (Model != null)
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="title-news">
+                    @Model.Title
+                </h2>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-md-12">
+                @Model.Description
+            </div>
+            <div class="col-md-12">
+                @Html.Raw(Model.Detail)
+            </div>
+        </div>
+    }
+
+</div>

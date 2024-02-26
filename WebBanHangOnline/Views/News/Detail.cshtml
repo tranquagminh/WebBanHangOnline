@@ -1,7 +1,8 @@
 ﻿@model WebBanHangOnline.Models.EF.News
 @{
-    ViewBag.Title = "Detail";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = Model.Title;
+    ViewBag.SeoDescription = Model.SeoDescription;
+    ViewBag.SeoKeyWord = Model.SeoKeyWords;
 }
 <style>
     .new_section_container {

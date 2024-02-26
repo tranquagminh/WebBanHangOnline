@@ -14,6 +14,7 @@ namespace WebBanHangOnline.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         public ActionResult Index()
         {
+           
             var items = db.Products.ToList();
             return View(items);
         }

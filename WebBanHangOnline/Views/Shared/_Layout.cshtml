@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Colo Shop</title>
+    <title>@ViewBag.Title</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="Colo Shop Template">
@@ -14,6 +14,23 @@
     <link rel="stylesheet" type="text/css" href="~/Content/assets/plugins/OwlCarousel2-2.2.1/animate.css">
     <link rel="stylesheet" type="text/css" href="~/Content/assets/plugins/jquery-ui-1.12.1.custom/jquery-ui.css">
     <link type="text/css" href="~/Content/assets/styles/main_styles.css" rel="stylesheet" />
+    <meta name="description" content="@ViewBag.SeoDescription" />
+    <meta name="keywords" itemprop="keywords" content="@ViewBag.SeoKeyWord" />
+    @*<meta name="news_keywords" content="" />*@
+    <link rel="canonical" href="https://www.minhquangtran.com.vn/" />
+    <meta name="robots" content="index,follow,noodp" />
+    <meta name="robots" content="noarchive">
+    <meta property="og:site_name" content="Bán hàng online" />
+    <meta property="og:type" content="Website" />
+    <meta property="og:locale" content="vi_VN" />
+    @*<meta property="fb:app_id" content="232505114857147" />*@
+    @*<meta property="fb:pages" content="1128104117285467" />*@
+    <meta property="og:title" itemprop="name" content="@ViewBag.Title" />
+    <meta property="og:url" itemprop="url" content="https://www.minhquangtran.com.vn/" />
+    <meta property="og:description" content="@ViewBag.SeoDescription" />
+    <meta content="https://cdn.24h.com.vn/upload/2-2018/images/2018-06-14/logo-chan-trang-24h.png" property="og:image" itemprop="thumbnailUrl" />
+    <!--script_breadcrum-->
+    <!-- HOME_INDEX_24H -->
     @*@RenderSection("css", required: false)*@
     <link rel="stylesheet" type="text/css" href="~/Content/assets/styles/responsive.css">
     @*@Styles.Render("~/Content/css")*@
@@ -44,7 +61,7 @@
 
                                     <!-- Currency / Language / My Account -->
 
-                                    <li class="currency">
+                                    @*<li class="currency">
                                         <a href="#">
                                             usd
                                             <i class="fa fa-angle-down"></i>
@@ -55,8 +72,8 @@
                                             <li><a href="#">eur</a></li>
                                             <li><a href="#">gbp</a></li>
                                         </ul>
-                                    </li>
-                                    <li class="language">
+                                    </li>*@
+                                    @*<li class="language">
                                         <a href="#">
                                             English
                                             <i class="fa fa-angle-down"></i>
@@ -67,7 +84,7 @@
                                             <li><a href="#">German</a></li>
                                             <li><a href="#">Spanish</a></li>
                                         </ul>
-                                    </li>
+                                    </li>*@
                                     <li class="account">
 
                                         @if (!Request.IsAuthenticated)
@@ -88,7 +105,8 @@
                                                 <i class="fa fa-angle-down"></i>
                                             </a>
                                             <ul class="account_selection">
-                                                <li><a href="/"><i class="fa fa-user" aria-hidden="true"></i>Profile</a></li>
+                                                <li><a href="/Account/ProfileUser"><i class="fa fa-user" aria-hidden="true"></i>Profile</a></li>
+                                                <li><a href="/Account/ProfileUser"><i class="fa fa-user" aria-hidden="true"></i>Sản phẩm yêu thích</a></li>
                                                 <li><a href="javascript:document.getElementById('logOffForm').submit()"><i class="fa fa-sign-out" aria-hidden="true"></i>Log out</a></li>
                                             </ul>
                                         }

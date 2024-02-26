@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity.Owin;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Entity;
@@ -10,9 +11,48 @@ using WebBanHangOnline.Models.EF;
 
 namespace WebBanHangOnline.Controllers
 {
+    
     public class ShoppingCartController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+
+        private ApplicationSignInManager _signInManager;
+        private ApplicationUserManager _userManager;
+
+        public ShoppingCartController()
+        {
+        }
+
+        public ShoppingCartController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        {
+            UserManager = userManager;
+            SignInManager = signInManager;
+        }
+
+        public ApplicationSignInManager SignInManager
+        {
+            get
+            {
+                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            }
+            private set
+            {
+                _signInManager = value;
+            }
+        }
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+        [AllowAnonymous]
         // GET: ShoppingCart
         public ActionResult Index()
         {
@@ -23,6 +63,7 @@ namespace WebBanHangOnline.Controllers
             }
             return View();
         }
+        [AllowAnonymous]
         public ActionResult CheckOut()
         {
             ShoppingCart cart = (ShoppingCart)Session["Cart"];
@@ -30,23 +71,31 @@ namespace WebBanHangOnline.Controllers
             {
                 ViewBag.CheckCart = cart;
             }
+            var user = UserManager.FindByNameAsync(User.Identity.Name).Result;
+            if (user != null)
+            {
+                ViewBag.User = user;
+            }
             return View();
         }
+        [AllowAnonymous]
         public ActionResult CheckOutSuccess()
         {
             
             return View();
         }
+        [AllowAnonymous]
         public ActionResult Partial_Item_ThanhToan()
         {
             ShoppingCart cart = (ShoppingCart)Session["Cart"];
             if (cart != null && cart.Items.Any())
             {
-
+                
                 return PartialView(cart.Items);
             }
             return PartialView();
         }
+        [AllowAnonymous]
         public ActionResult Partial_Item_Cart()
         {
             ShoppingCart cart = (ShoppingCart)Session["Cart"];
@@ -57,7 +106,7 @@ namespace WebBanHangOnline.Controllers
             }
             return PartialView();
         }
-
+        [AllowAnonymous]
         public ActionResult ShowCount()
         {
             ShoppingCart cart = (ShoppingCart)Session["Cart"];

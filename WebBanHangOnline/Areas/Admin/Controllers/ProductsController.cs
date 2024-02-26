@@ -121,6 +121,15 @@ namespace WebBanHangOnline.Areas.Admin.Controllers
             var item = db.Products.Find(id);
             if (item != null)
             {
+                var checkImg = item.ProductImage.Where(x => x.ProductId == item.Id);
+                if(checkImg != null)
+                {
+                   foreach(var i in checkImg)
+                    {
+                        db.ProductImages.Remove(i);
+                        db.SaveChanges();
+                    }
+                }
                 db.Products.Remove(item);
                 db.SaveChanges();
                 return Json(new { success = true });

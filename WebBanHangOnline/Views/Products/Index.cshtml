@@ -15,8 +15,8 @@
 
             <div class="breadcrumbs d-flex flex-row align-items-center">
                 <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li class="active"><a href="index.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Men's</a></li>
+                    <li><a href="/san-pham">Home</a></li>
+                    
                 </ul>
             </div>
 
@@ -120,7 +120,7 @@
                                         </ul>
                                     </li>
                                 </ul>
-                                <div class="pages d-flex flex-row align-items-center">
+                                @*<div class="pages d-flex flex-row align-items-center">
                                     <div class="page_current">
                                         <span>1</span>
                                         <ul class="page_selection">
@@ -131,7 +131,7 @@
                                     </div>
                                     <div class="page_total"><span>of</span> 3</div>
                                     <div id="next_page" class="page_next"><a href="#"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a></div>
-                                </div>
+                                </div>*@
 
                             </div>
 
@@ -158,10 +158,12 @@
                                                         @if (item.PriceSale > 0)
                                                         {
                                                             <div class="product_price">@WebBanHangOnline.Common.Common.FormatNumber(item.Price, 0)<span>@WebBanHangOnline.Common.Common.FormatNumber(item.PriceSale, 0)</span></div>
+                                                            <div style="display:none" value="@item.PriceSale" class="in_product_price">@item.Price</div>
                                                         }
                                                         else
                                                         {
                                                             <div class="product_price">@WebBanHangOnline.Common.Common.FormatNumber(item.Price, 0)</div>
+                                                            <div style="display:none" value="@item.Price" class="in_product_price">@item.Price</div>
                                                         }
 
                                                     </div>
@@ -180,10 +182,11 @@
                                                         <div class="product_bubble product_bubble_left product_bubble_green d-flex flex-column align-items-center"><span>new</span></div>
                                                     }
 
-                                                    <div class="product_info">
-                                                        <h6 class="product_name"><a href="/chi-tiet/@item.Alias-p@(item.Id)">@item.Title</a></h6>
-                                                        <div class="product_price">@WebBanHangOnline.Common.Common.FormatNumber(item.Price, 0)</div>
-                                                    </div>
+                                                <div class="product_info">
+                                                    <h6 class="product_name"><a href="/chi-tiet/@item.Alias-p@(item.Id)">@item.Title</a></h6>
+                                                    <div class="product_price">@WebBanHangOnline.Common.Common.FormatNumber(item.Price, 0)</div>
+                                                    <div style="display:none" value="@item.Price" class="in_product_price">@item.Price</div>
+                                                </div>
                                                 </div>
                                             }
 
@@ -197,7 +200,7 @@
 
                             <!-- Product Sorting -->
 
-                            <div class="product_sorting_container product_sorting_container_bottom clearfix">
+                            @*<div class="product_sorting_container product_sorting_container_bottom clearfix">
                                 <ul class="product_sorting">
                                     <li>
                                         <span>Show:</span>
@@ -225,7 +228,7 @@
                                     <div id="next_page_1" class="page_next"><a href="#"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a></div>
                                 </div>
 
-                            </div>
+                            </div>*@
 
                         </div>
                     </div>

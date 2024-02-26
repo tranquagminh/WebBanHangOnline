@@ -58,8 +58,15 @@ namespace WebBanHangOnline
            );
             routes.MapRoute(
                 name: "CategoryProduct",
-                url: "san-pham/{Alias}",
-                defaults: new { controller = "Products", action = "Index", Alias = UrlParameter.Optional },
+                url: "san-pham/{alias}",
+                defaults: new { controller = "Products", action = "Index", alias = UrlParameter.Optional },
+                namespaces: new[] { "WebBanHangOnline.Controllers" }
+
+            );
+            routes.MapRoute(
+                name: "BaiViet",
+                url: "post/{Alias}",
+                defaults: new { controller = "Artical", action = "Index", Alias = UrlParameter.Optional },
                 namespaces: new[] { "WebBanHangOnline.Controllers" }
 
             );

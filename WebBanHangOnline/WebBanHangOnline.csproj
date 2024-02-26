@@ -198,6 +198,7 @@
     <Compile Include="Common\Common.cs" />
     <Compile Include="Common\SettingHelper.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ArticalController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -275,6 +276,10 @@
     <Compile Include="Migrations\202401160918477_UpdateProductOriginalPrice.cs" />
     <Compile Include="Migrations\202401160918477_UpdateProductOriginalPrice.designer.cs">
       <DependentUpon>202401160918477_UpdateProductOriginalPrice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202401190549230_UpdateCategory1.cs" />
+    <Compile Include="Migrations\202401190549230_UpdateCategory1.designer.cs">
+      <DependentUpon>202401190549230_UpdateCategory1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -3633,6 +3638,8 @@
     <Content Include="Views\Home\Partial_Subcribe.cshtml" />
     <Content Include="Views\News\Index.cshtml" />
     <Content Include="Views\News\Detail.cshtml" />
+    <Content Include="Views\Artical\Index.cshtml" />
+    <Content Include="Views\Account\ProfileUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -3640,7 +3647,6 @@
     <Folder Include="Areas\Admin\Views\Adv\" />
     <Folder Include="Content\ckfinder\ckfinder\userfiles\" />
     <Folder Include="Uploads\files\" />
-    <Folder Include="Views\Statistical\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -3706,6 +3712,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202401160918477_UpdateProductOriginalPrice.resx">
       <DependentUpon>202401160918477_UpdateProductOriginalPrice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202401190549230_UpdateCategory1.resx">
+      <DependentUpon>202401190549230_UpdateCategory1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
