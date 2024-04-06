@@ -1,4 +1,4 @@
-![image](https://github.com/tranquagminh/WebBanHangOnline/assets/118581461/5932c00d-b8dc-4185-9878-5c5645726a2b)Xin chào mọi người đây sẽ là dự án trang web bán hàng được thực hiện bằng ASP.NET MVC có những ngôn ngữ bên ngoài. Nếu có sai sót gì mọi người chỉ bảo mình ạ.
+Xin chào mọi người đây sẽ là dự án trang web bán hàng được thực hiện bằng ASP.NET MVC có những ngôn ngữ bên ngoài. Nếu có sai sót gì mọi người chỉ bảo mình ạ.
 Đây là một số hình ảnh trang chủ của web bán hàng online
 ![image](https://github.com/tranquagminh/WebBanHangOnline/assets/118581461/bc49df1e-05de-469f-9408-4afcee88caad)
 ![image](https://github.com/tranquagminh/WebBanHangOnline/assets/118581461/e68ffdda-4934-4953-8b4d-43cf355d7770)
